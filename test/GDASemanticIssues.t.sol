@@ -121,6 +121,19 @@ contract GDASemanticIssuesTest is Test {
         _printFlowRates(targetFlowRate);
     }
 
+    // Issue B: in the very unlucky variant, the effective flowrate ends up stuck at 0
+    function testIssueBVeryUnlucky() public {
+        int96 targetFlowRate = 100;
+
+        console.log("------ ACTIONS ------");
+        _updateMemberUnits(alice, 10);
+        _distributeFlow(sponsor, targetFlowRate);
+        _updateMemberUnits(bob, 91);
+        _updateMemberUnits(bob, 15);
+
+        _printFlowRates(targetFlowRate);
+    }
+
     // HELPERS
 
     function _getNameByAddress(address addr) internal view returns (string memory) {

@@ -10,7 +10,7 @@ forge test -vv
 
 Test output:
 ```
-Running 4 tests for test/GDASemanticIssues.t.sol:GDASemanticIssuesTest
+Running 5 tests for test/GDASemanticIssues.t.sol:GDASemanticIssuesTest
 [PASS] testIssueALucky() (gas: 1314552)
 Logs:
   ------ ACTIONS ------
@@ -41,7 +41,7 @@ Logs:
   aliceFlowRate:       36
   bobFlowRate:         44
 
-[PASS] testIssueBLucky() (gas: 1314551)
+[PASS] testIssueBLucky() (gas: 1314573)
 Logs:
   ------ ACTIONS ------
   alice set to 10 units
@@ -72,7 +72,23 @@ Logs:
   aliceFlowRate:       30
   bobFlowRate:         45
 
-Test result: ok. 4 passed; 0 failed; 0 skipped; finished in 41.15ms
+[PASS] testIssueBVeryUnlucky() (gas: 1496977)
+Logs:
+  ------ ACTIONS ------
+  alice set to 10 units
+  distributeFlow 100
+  bob set to 91 units
+  bob set to 15 units
+  ------ RESULT -------
+  totalUnits:          25
+  targetFlowRate:      100
+  actualFlowRate:      100
+  effectiveFlowRate:   0
+  adjustmentFlowRate:  100
+  aliceFlowRate:       0
+  bobFlowRate:         0
 
-Ran 1 test suites: 4 tests passed, 0 failed, 0 skipped (4 total tests)
+Test result: ok. 5 passed; 0 failed; 0 skipped; finished in 15.47ms
+
+Ran 1 test suites: 5 tests passed, 0 failed, 0 skipped (5 total tests)
 ```
