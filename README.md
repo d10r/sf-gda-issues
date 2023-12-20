@@ -1,66 +1,78 @@
-## Foundry
+# GDA Semantic Issues
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+In [test/GDASemanticIssues.t.sol](test/GDASemanticIssues.t.sol) I make the point that the currently implemented semantics of flow distributions is flawed.
 
-Foundry consists of:
-
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
-
-## Documentation
-
-https://book.getfoundry.sh/
-
-## Usage
-
-### Build
-
-```shell
-$ forge build
+To run:
+```
+forge install
+forge test -vv
 ```
 
-### Test
-
-```shell
-$ forge test
+Test output:
 ```
+Running 4 tests for test/GDASemanticIssues.t.sol:GDASemanticIssuesTest
+[PASS] testIssueALucky() (gas: 1314552)
+Logs:
+  ------ ACTIONS ------
+  alice set to 9 units
+  bob set to 11 units
+  distributeFlow 100
+  ------ RESULT -------
+  totalUnits:          20
+  targetFlowRate:      100
+  actualFlowRate:      100
+  effectiveFlowRate:   100
+  adjustmentFlowRate:  0
+  aliceFlowRate:       45
+  bobFlowRate:         55
 
-### Format
+[PASS] testIssueAUnlucky() (gas: 1314575)
+Logs:
+  ------ ACTIONS ------
+  alice set to 9 units
+  distributeFlow 100
+  bob set to 11 units
+  ------ RESULT -------
+  totalUnits:          20
+  targetFlowRate:      100
+  actualFlowRate:      99
+  effectiveFlowRate:   80
+  adjustmentFlowRate:  19
+  aliceFlowRate:       36
+  bobFlowRate:         44
 
-```shell
-$ forge fmt
-```
+[PASS] testIssueBLucky() (gas: 1314551)
+Logs:
+  ------ ACTIONS ------
+  alice set to 10 units
+  distributeFlow 100
+  bob set to 15 units
+  ------ RESULT -------
+  totalUnits:          25
+  targetFlowRate:      100
+  actualFlowRate:      100
+  effectiveFlowRate:   100
+  adjustmentFlowRate:  0
+  aliceFlowRate:       40
+  bobFlowRate:         60
 
-### Gas Snapshots
+[PASS] testIssueBUnlucky() (gas: 1496977)
+Logs:
+  ------ ACTIONS ------
+  alice set to 10 units
+  distributeFlow 100
+  bob set to 5 units
+  bob set to 15 units
+  ------ RESULT -------
+  totalUnits:          25
+  targetFlowRate:      100
+  actualFlowRate:      100
+  effectiveFlowRate:   75
+  adjustmentFlowRate:  25
+  aliceFlowRate:       30
+  bobFlowRate:         45
 
-```shell
-$ forge snapshot
-```
+Test result: ok. 4 passed; 0 failed; 0 skipped; finished in 41.15ms
 
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
+Ran 1 test suites: 4 tests passed, 0 failed, 0 skipped (4 total tests)
 ```
