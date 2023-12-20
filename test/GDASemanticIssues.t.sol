@@ -18,7 +18,7 @@ function toU256(int96 i96) pure returns (uint256) {
  * This test contract makes the point that the currently implemented semantics of flow distribution is flawed.
  *
  * The pool state, defined by unit allocations and distribution flowrate, does not determine the effective flowrate (how much is being distributed to pool members).
- * Instead, the effective flowrate additionally depeonds on the past order of `distributeFlow` and `updateMemberUnits` actions.
+ * Instead, the effective flowrate additionally depends on the past order of `distributeFlow` and `updateMemberUnits` actions.
  *
  * Definitions:
  * - targetFlowRate: the flowrate a flow sender wants to distribute via a pool, expressed by the `flowRate` argument of `distributeFlow` invocations.
